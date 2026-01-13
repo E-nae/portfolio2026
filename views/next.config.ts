@@ -1,6 +1,14 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  async rewrites() {
+    return [
+      {
+        source: "/api/:path*", 
+        destination: "https://my-backend.onrender.com/:path*", 
+      },
+    ];
+  },
   images: {
     remotePatterns: [
       {
@@ -11,8 +19,7 @@ const nextConfig: NextConfig = {
   },
   turbopack: {
     root: __dirname
-  },
-  output: 'export'
+  }
 };
 
 export default nextConfig;
