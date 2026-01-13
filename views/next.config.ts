@@ -2,10 +2,14 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   async rewrites() {
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+    if (!apiUrl) {
+      console.warn("⚠️ 경고: NEXT_PUBLIC_API_URL 환경변수가 없습니다.");
+    }
     return [
       {
         source: "/api/:path*", 
-        destination: "https://portfolio2026-3w2e.onrender.com/:path*", 
+        destination: `${apiUrl}/:path*`, 
       },
     ];
   },
