@@ -1,40 +1,34 @@
 import 'dotenv/config'
 import express from 'express';
-import next from 'next';
 import http from 'http';
+import cors from 'cors';
 import contactRouter from './routes/contact';
 
-const dev = process.env.NODE_ENV !== 'production';
-const port = Number(process.env.PORT);
+const app = express()
+const port = process.env.PORT;
+// 미들웨어
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-console.log(process.env.NODE_ENV);
-console.log(port);
-const hostname = '0.0.0.0'; // 외부 접속 허용 
+app.use(cors({
+    origin: [
+        'https://enaeble.co.kr', // 메인 도메인
+        'https://portfolio2026.pages.dev', // Cloudflare 기본 주소
+        'http://localhost:3000' // 로컬 테스트용
+    ],
+    credentials: true // 쿠키 등을 주고받는다면 필수
+}));
 
-const app = next({ dev, dir: './views' });
-const handle = app.getRequestHandler();
+const httpServer = http.createServer(app);
 
-app.prepare().then(() => {
-    const server = express();
+/** 라우트 */
+app.use('/api/contact', contactRouter);
 
-    server.use(express.json());
-    server.use(express.urlencoded({ extended: true }));
+httpServer.listen(port, () => {
+    console.log(`> Ready on ${port} (Everything is Enaeble)`);
+});
 
-    /** 라우트 */
-    server.use('/api/contact', contactRouter);
-
-    server.use((req, res) => {
-        return handle(req, res);
-    });
-
-    const httpServer = http.createServer(server);
-    
-    httpServer.listen(port, hostname, () => {
-        console.log(`> Ready on http://${hostname}:${port} (Everything is Enaeble)`);
-    });
-
-    httpServer.on('error', (err) => {
-        console.error('Server failed to start:', err);
-        process.exit(1);
-    });
+httpServer.on('error', (err) => {
+    console.error('Server failed to start:', err);
+    process.exit(1);
 });

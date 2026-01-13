@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Github, ArrowLeft, Send, CheckCircle, Loader2 } from 'lucide-react';
 import Link from 'next/link';
-import { contactMe } from '../api/contact';
+import { contactMe } from '@/api/contact';
 
 export default function Contact() {
   const [formState, setFormState] = useState({
