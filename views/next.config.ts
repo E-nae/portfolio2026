@@ -2,9 +2,9 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   async rewrites() {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+    const apiUrl = process.env.API_URL;
     if (!apiUrl) {
-      console.warn("⚠️ 경고: NEXT_PUBLIC_API_URL 환경변수가 없습니다.");
+      console.warn("⚠️ 경고: API_URL 환경변수가 없습니다.");
     }
     return [
       {
