@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/api/:path*", 
-        destination: "https://my-backend.onrender.com/:path*", 
+        destination: "https://portfolio2026-3w2e.onrender.com/:path*", 
       },
     ];
   },
