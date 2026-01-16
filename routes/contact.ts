@@ -61,7 +61,7 @@ router.post('/', contactLimiter, async (req, res) => {
 
   try {
     const { data, error } = await resend.emails.send({
-      from: 'Portfolio <onboarding@resend.dev>', // ⚠️ 도메인 인증 전엔 이거 고정
+      from: 'Portfolio <contact@enaeble.co.kr>', 
       to: [process.env.CONTACT_RECEIVER_EMAIL || 'your@email.com'],
       replyTo: email,
       subject: '[Portfolio] 새로운 프로젝트 문의가 도착했습니다.',
