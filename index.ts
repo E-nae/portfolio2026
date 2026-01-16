@@ -12,6 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 
 const allowedOrigins = [
     'https://enaeble.co.kr', // 메인 도메인
+    'https://www.enaeble.co.kr', // 메인 도메인
     'https://portfolio2026.pages.dev', // Cloudflare 기본 주소
     'http://localhost:3000' // 로컬 테스트용
 ];
