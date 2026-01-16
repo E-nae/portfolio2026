@@ -1,4 +1,4 @@
-import { Project } from "@/types/Project";
+import { Project } from "../types/Project";
 
 // --- Mock Data (프로젝트가 적어도 꽉 차 보이게 긴 설명과 큰 이미지 사용) ---
 export const projects: Project[] = [
