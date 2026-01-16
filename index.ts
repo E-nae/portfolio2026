@@ -5,6 +5,7 @@ import cors from 'cors';
 import contactRouter from './routes/contact';
 
 const app = express()
+app.set('trust proxy', 1); 
 const port = process.env.PORT;
 // 미들웨어
 app.use(express.json());
