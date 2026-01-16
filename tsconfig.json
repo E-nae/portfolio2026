@@ -1,8 +1,10 @@
 {
     "compilerOptions": {
-    "module": "CommonJS",
       "esModuleInterop": true,
-      "moduleResolution": "node"
+      "moduleResolution": "node",
+      "outDir": "dist",
+      "module": "ESNext",
+      "target": "ES2017"
     }
 }
   

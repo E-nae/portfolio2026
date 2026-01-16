@@ -17,6 +17,7 @@ export default function ProjectCard({ project, index }: { project: Project; inde
                     src={project.image} 
                     alt={project.title}
                     fill
+                    sizes="(max-width: 768px) 100vw, 1024px"
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors duration-500" />
@@ -39,7 +40,7 @@ export default function ProjectCard({ project, index }: { project: Project; inde
                 </div>
     
                 <motion.a 
-                    href="#"
+                    href={project.url}
                     whileHover={{ x: 5 }}
                     className="inline-flex items-center gap-2 text-lg font-semibold text-gray-900 border-b-2 border-gray-900 pb-1"
                 >

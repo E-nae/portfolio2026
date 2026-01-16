@@ -6,5 +6,6 @@ export interface Project {
     category: string;
     description: string;
     tags: string[];
-    image: string; // 이미지 경로 (public 폴더 내)
+    image: string;
+    url: string;
 }
