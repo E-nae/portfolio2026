@@ -8,4 +8,5 @@ export interface Project {
     tags: string[];
     image: string;
     url: string;
+    github: { url: string }[];
 }

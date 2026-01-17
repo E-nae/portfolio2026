@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ExternalLink } from 'lucide-react';
+import { ExternalLink, Github } from 'lucide-react';
 import Image from 'next/image';
 import { Project } from '@/types/Project';
 
@@ -39,13 +39,28 @@ export default function ProjectCard({ project, index }: { project: Project; inde
                     ))}
                 </div>
     
-                <motion.a 
-                    href={project.url}
-                    whileHover={{ x: 5 }}
-                    className="inline-flex items-center gap-2 text-lg font-semibold text-gray-900 border-b-2 border-gray-900 pb-1"
-                >
-                    View Project <ExternalLink size={18} />
-                </motion.a>
+                <div className='flex flex-row gap-5 items-center'>
+                    <motion.a 
+                        href={project.url}
+                        whileHover={{ x: 5 }}
+                        className="inline-flex items-center gap-2 text-lg font-semibold text-gray-900 border-b-2 border-gray-900 pb-1"
+                    >
+                        View Project <ExternalLink size={18} />
+                    </motion.a>
+                    {
+                        project.github.map((git) => (
+                            <motion.a 
+                                key={git.url}
+                                href={git.url}
+                                whileHover={{ x: 5 }}
+                                className="w-7 h-7 rounded-full bg-black p-1 flex items-center cursor-pointer"
+                            >
+                                <Github size={20} style={{ color: '#fff'}} />
+                            </motion.a>
+                        ))
+                    }
+                    
+                </div>
             </div>
         </motion.div>
   
