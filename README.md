@@ -26,8 +26,10 @@ Next.js의 강력한 SSR 기능과 Express.js의 유연한 라우팅 시스템�
 ### Backend (Custom Server)
 - **Runtime:** Node.js (ESM)
 - **Server Framework:** Express.js
-- **Email Service:** Nodemailer (SMTP)
+- **Email Service:** Nodemailer (SMTP)X -> Resend
 - **Process Manager:** Cross-env
+- **Anti-spam:** google reCAPTCHA v3
+- **Anti-bot:** Rate Limit
 
 ## 📂 Directory Structure
 
