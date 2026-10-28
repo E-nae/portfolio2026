@@ -140,3 +140,6 @@ vite.config.ts.timestamp-*
 
 # Cloudflare wrangler local state
 .wrangler/
+
+# Cloudflare Pages Functions 로컬 비밀키
+.dev.vars
