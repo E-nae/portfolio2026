@@ -1,4 +1,3 @@
-import { env } from '@/shared/config';
 import { getRecaptchaToken } from '@/shared/lib/recaptcha';
 import type { ContactFormData } from '../model/types';
 
@@ -15,7 +14,8 @@ export const sendContact = async (formState: ContactFormData) => {
 
   let res: Response;
   try {
-    res = await fetch(`${env.apiUrl}/api/contact`, {
+    // Pages Functions(functions/api/contact.ts)가 같은 도메인에서 처리
+    res = await fetch('/api/contact', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ ...formState, captchaToken: token }),
