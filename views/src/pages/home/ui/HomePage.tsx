@@ -7,13 +7,15 @@ import { Footer } from '@/widgets/footer';
 
 export function HomePage() {
   return (
-    <main className="min-h-screen bg-white selection:bg-blue-100">
+    <>
       <Navbar />
-      <Hero />
-      <ProjectList />
-      <TechStack />
-      <About />
+      <main>
+        <Hero />
+        <ProjectList />
+        <TechStack />
+        <About />
+      </main>
       <Footer />
-    </main>
+    </>
   );
 }

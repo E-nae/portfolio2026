@@ -5,6 +5,15 @@ import rateLimit from 'express-rate-limit';
 import axios from 'axios';
 
 const router = express.Router();
+
+/** 메일 HTML에 넣기 전에 사용자 입력 이스케이프 처리 */
+const escapeHtml = (value: string) =>
+  value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 /** 봇 판단 */
@@ -34,7 +43,7 @@ async function verifyCaptcha(token: string) {
 }
 
 router.post('/', contactLimiter, async (req, res) => {
-  const { email, message, captchaToken } = req.body;
+  const { email, subject, message, captchaToken } = req.body;
 
   if (!captchaToken) {
     return res.status(400).json({
@@ -59,12 +68,16 @@ router.post('/', contactLimiter, async (req, res) => {
     });
   }
 
+  const safeEmail = escapeHtml(String(email));
+  const safeMessage = escapeHtml(String(message));
+  const cleanSubject = typeof subject === 'string' ? subject.trim().slice(0, 120) : '';
+
   try {
     const { data, error } = await resend.emails.send({
       from: 'Portfolio <contact@enaeble.co.kr>', 
       to: [process.env.CONTACT_RECEIVER_EMAIL || 'your@email.com'],
       replyTo: email,
-      subject: '[Portfolio] 새로운 프로젝트 문의가 도착했습니다.',
+      subject: cleanSubject ? `[Portfolio] ${cleanSubject}` : '[Portfolio] 새로운 프로젝트 문의가 도착했습니다.',
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
           <h2 style="color: #2563EB;">Everything is Enaeble.</h2>
@@ -74,9 +87,10 @@ router.post('/', contactLimiter, async (req, res) => {
           <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;" />
           
           <div style="background-color: #f9fafb; padding: 20px; border-radius: 8px;">
-            <p><strong>보낸 사람:</strong> ${email}</p>
+            <p><strong>보낸 사람:</strong> ${safeEmail}</p>
+            ${cleanSubject ? `<p><strong>제목:</strong> ${escapeHtml(cleanSubject)}</p>` : ''}
             <p><strong>내용:</strong></p>
-            <p style="white-space: pre-wrap; color: #555;">${message}</p>
+            <p style="white-space: pre-wrap; color: #555;">${safeMessage}</p>
           </div>
 
           <div style="margin-top: 30px; text-align: center; font-size: 12px; color: #aaa;">

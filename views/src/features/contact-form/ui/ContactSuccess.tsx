@@ -1,29 +1,29 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { CheckCircle } from 'lucide-react';
+import Link from 'next/link';
+import { ToggleMark } from '@/shared/ui';
 
 export function ContactSuccess({ onReset }: { onReset: () => void }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.9 }}
-      animate={{ opacity: 1, scale: 1 }}
-      className="flex flex-col items-center justify-center p-20 text-center bg-gray-50 rounded-3xl border border-gray-100"
-    >
-      <div className="mb-6 text-green-500">
-        <CheckCircle size={64} />
+    <div role="status" className="flex flex-col gap-4 rounded-2xl border border-line bg-white p-8 md:p-14">
+      <ToggleMark size="lg" />
+      <h2 className="text-[clamp(26px,2.6vw,34px)] font-bold tracking-[-0.03em]">메시지를 보냈어요.</h2>
+      <p className="text-[17px] text-ink-soft">적어주신 이메일로 답장드릴게요.</p>
+      <div className="mt-2 flex flex-wrap gap-2.5">
+        <Link
+          href="/#projects"
+          className="inline-flex min-h-12 items-center rounded-full bg-ink px-6 font-medium text-white transition-colors hover:bg-[#2a3047]"
+        >
+          프로젝트 더 보기
+        </Link>
+        <button
+          type="button"
+          onClick={onReset}
+          className="inline-flex min-h-12 cursor-pointer items-center rounded-full border-[1.5px] border-line-strong px-6 font-medium text-ink transition-colors hover:border-ink"
+        >
+          메시지 하나 더 보내기
+        </button>
       </div>
-      <h3 className="text-3xl font-bold text-gray-900 mb-4">메시지가 전송되었습니다!</h3>
-      <p className="text-gray-500 text-lg">
-        빠른 시일 내에 확인하고 연락드리겠습니다.<br/>
-        오늘도 <b>Enaeble</b>한 하루 되세요.
-      </p>
-      <button
-        onClick={onReset}
-        className="mt-8 px-8 py-3 text-sm font-medium text-gray-600 bg-white border border-gray-200 rounded-full hover:bg-gray-100"
-      >
-        다른 메시지 보내기
-      </button>
-    </motion.div>
+    </div>
   );
 }

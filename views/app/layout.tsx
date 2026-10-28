@@ -1,21 +1,24 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { IBM_Plex_Sans_KR } from "next/font/google";
 import "@/app/styles/globals.css";
-import { RecaptchaScript } from "@/shared/lib/recaptcha";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const plex = IBM_Plex_Sans_KR({
+  variable: "--font-plex",
+  weight: ["300", "400", "500", "700"],
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Enae\'s portfolio",
-  description: "Enae\'s portfolio 2026 version",
+  title: "Enaeble | 프론트엔드 개발자 임인혜",
+  description:
+    "\"이게 될까요?\"라는 질문에 \"됩니다\"로 답하는 프론트엔드 개발자 임인혜의 포트폴리오입니다.",
+  openGraph: {
+    title: "Enaeble | 프론트엔드 개발자 임인혜",
+    description: "\"이게 될까요?\"라는 질문에 \"됩니다\"로 답한 프로젝트들을 모았습니다.",
+    locale: "ko_KR",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
@@ -24,13 +27,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+    <html lang="ko" className={plex.variable}>
+      <body className="font-sans antialiased">
         {children}
       </body>
-      <RecaptchaScript />
     </html>
   );
 }

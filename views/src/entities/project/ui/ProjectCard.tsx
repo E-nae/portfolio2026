@@ -1,70 +1,77 @@
-'use client';
-
-import { motion } from 'framer-motion';
-import { ExternalLink, Github } from 'lucide-react';
 import Image from 'next/image';
+import { ToggleMark } from '@/shared/ui';
 import type { Project } from '../model/types';
 
-export default function ProjectCard({ project, index }: { project: Project; index: number }) {
+const outlineButton =
+    'inline-flex min-h-11 items-center rounded-full border-[1.5px] border-line-strong px-5 text-[15px] font-medium text-ink transition-colors hover:border-ink';
+
+export default function ProjectCard({ project }: { project: Project }) {
+    const { question, title, description, role, period, tags, image, imageAlt, demoUrl, codeLinks } = project;
+
     return (
-        <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6, delay: index * 0.1 }}
-            className="group relative grid grid-cols-1 md:grid-cols-2 gap-8 mb-32 items-center"
-        >
-            <div className={`relative h-[400px] md:h-[500px] w-full overflow-hidden rounded-3xl shadow-2xl ${index % 2 === 1 ? 'md:order-2' : ''}`}>
-                <Image 
-                    src={project.image} 
-                    alt={project.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 1024px"
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors duration-500" />
-            </div>
-    
-            {/* Content Area */}
-            <div className={`flex flex-col justify-center ${index % 2 === 1 ? 'md:order-1 md:text-right items-end' : 'md:text-left items-start'}`}>
-                <span className="text-blue-600 font-bold tracking-wider text-sm mb-2 uppercase">{project.category}</span>
-                <h3 className="text-4xl font-bold text-gray-900 mb-6">{project.title}</h3>
-                <p className="text-lg text-gray-500 mb-8 leading-relaxed max-w-lg">
-                    {project.description}
+        <article className="flex flex-wrap items-center gap-8 border-t border-line py-12 md:gap-[clamp(32px,5vw,72px)] md:py-[clamp(48px,6vw,88px)]">
+            <div className="flex min-w-0 flex-[1_1_420px] flex-col gap-[18px]">
+                <p className="text-[clamp(24px,2.5vw,34px)] font-light leading-[1.4] tracking-[-0.02em] text-question">
+                    {question}
                 </p>
-                
-                <div className={`flex flex-wrap gap-3 mb-8 ${index % 2 === 1 ? 'justify-end' : ''}`}>
-                    {project.tags.map(tag => (
-                    <span key={tag} className="px-4 py-2 text-sm font-medium text-gray-600 bg-gray-100 rounded-lg">
-                        {tag}
-                    </span>
+                <div className="flex items-center gap-3.5">
+                    <ToggleMark />
+                    <p className="text-[clamp(28px,3vw,40px)] font-bold leading-[1.2] tracking-[-0.03em]">됩니다.</p>
+                </div>
+                <h3 className="mt-2 text-xl font-medium">{title}</h3>
+                <p className="max-w-[34em] text-[17px] leading-[1.8] text-ink-soft">{description}</p>
+
+                {(role || period) && (
+                    <dl className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1 text-[15px]">
+                        {role && (
+                            <>
+                                <dt className="text-muted">역할</dt>
+                                <dd>{role}</dd>
+                            </>
+                        )}
+                        {period && (
+                            <>
+                                <dt className="text-muted">기간</dt>
+                                <dd>{period}</dd>
+                            </>
+                        )}
+                    </dl>
+                )}
+
+                <ul aria-label="사용 기술" className="flex flex-wrap gap-2">
+                    {tags.map((tag) => (
+                        <li key={tag} className="rounded-md bg-chip px-2.5 py-1 text-sm text-ink-soft">
+                            {tag}
+                        </li>
+                    ))}
+                </ul>
+
+                <div className="mt-1.5 flex flex-wrap gap-2.5">
+                    <a
+                        href={demoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex min-h-11 items-center rounded-full bg-ink px-5 text-[15px] font-medium text-white transition-colors hover:bg-[#2a3047]"
+                    >
+                        데모 열기
+                    </a>
+                    {codeLinks.map((link) => (
+                        <a key={link.url} href={link.url} target="_blank" rel="noopener noreferrer" className={outlineButton}>
+                            {link.label}
+                        </a>
                     ))}
                 </div>
-    
-                <div className='flex flex-row gap-5 items-center'>
-                    <motion.a 
-                        href={project.url}
-                        whileHover={{ x: 5 }}
-                        className="inline-flex items-center gap-2 text-lg font-semibold text-gray-900 border-b-2 border-gray-900 pb-1"
-                    >
-                        View Project <ExternalLink size={18} />
-                    </motion.a>
-                    {
-                        project.github.map((git) => (
-                            <motion.a 
-                                key={git.url}
-                                href={git.url}
-                                whileHover={{ x: 5 }}
-                                className="w-7 h-7 rounded-full bg-black p-1 flex items-center cursor-pointer"
-                            >
-                                <Github size={20} style={{ color: '#fff'}} />
-                            </motion.a>
-                        ))
-                    }
-                    
-                </div>
             </div>
-        </motion.div>
-  
-    )
+
+            <figure className="relative aspect-[16/10] min-w-0 flex-[1_1_520px] overflow-hidden rounded-xl border border-line bg-white">
+                <Image
+                    src={image}
+                    alt={imageAlt}
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 560px"
+                    className="object-cover object-left-top"
+                />
+            </figure>
+        </article>
+    );
 }

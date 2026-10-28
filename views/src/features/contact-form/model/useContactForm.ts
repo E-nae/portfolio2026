@@ -2,26 +2,26 @@ import { useState } from 'react';
 import { sendContact } from '../api/sendContact';
 import type { ContactFormData, ContactStatus } from './types';
 
+const emptyForm: ContactFormData = { email: '', subject: '', message: '' };
+
 export const useContactForm = () => {
-  const [formState, setFormState] = useState<ContactFormData>({
-    email: '',
-    message: '',
-  });
+  const [formState, setFormState] = useState<ContactFormData>(emptyForm);
   const [status, setStatus] = useState<ContactStatus>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('loading');
+    setErrorMessage('');
 
     try {
-      const res = await sendContact(formState);
-
-      if (!res?.ok) throw new Error('Failed');
-
-      setTimeout(() => setStatus('success'), 1000);
-    } catch {
+      await sendContact(formState);
+      setFormState(emptyForm);
+      setStatus('success');
+    } catch (error) {
+      // 실패해도 입력값은 남겨두고 이유만 보여줌
+      setErrorMessage(error instanceof Error ? error.message : '');
       setStatus('error');
-      setTimeout(() => setStatus('idle'), 3000); // 3초 후 다시 입력 가능하도록
     }
   };
 
@@ -30,5 +30,5 @@ export const useContactForm = () => {
 
   const reset = () => setStatus('idle');
 
-  return { formState, status, handleSubmit, updateField, reset };
+  return { formState, status, errorMessage, handleSubmit, updateField, reset };
 };
