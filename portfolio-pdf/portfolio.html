@@ -1,0 +1,661 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>임인혜 포트폴리오</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=block" rel="stylesheet">
+<style>
+  @page { size: A4; margin: 0; }
+  :root {
+    --paper: #f4f5f7;
+    --white: #ffffff;
+    --ink: #151a2e;
+    --ink-soft: #3a3f4d;
+    --muted: #5d6372;
+    --question: #8a8f9d;
+    --line: #dde0e6;
+    --line-strong: #c5c9d2;
+    --chip: #e6e8ee;
+    --on: #3845ff;
+    --sans: "IBM Plex Sans KR", "Pretendard", "Apple SD Gothic Neo", sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--paper); }
+  body {
+    font-family: var(--sans);
+    color: var(--ink);
+    word-break: keep-all;
+    line-height: 1.65;
+    font-size: 9.6pt;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  a { color: inherit; text-decoration: none; }
+
+  .page {
+    width: 210mm; height: 297mm;
+    padding: 16mm 17mm 14mm;
+    position: relative; overflow: hidden;
+    background: var(--paper);
+    page-break-after: always; break-after: page;
+    display: flex; flex-direction: column;
+  }
+  .page:last-child { page-break-after: auto; break-after: auto; }
+
+  /* 상단 머리말 / 하단 쪽번호 */
+  .run {
+    display: flex; justify-content: space-between; align-items: baseline;
+    font-family: var(--mono); font-size: 7.4pt; color: var(--muted);
+    letter-spacing: .02em;
+    padding-bottom: 3mm; border-bottom: 1px solid var(--line-strong);
+    margin-bottom: 9mm;
+  }
+  .run b { color: var(--ink); font-weight: 500; }
+  .folio {
+    position: absolute; left: 17mm; right: 17mm; bottom: 9mm;
+    display: flex; justify-content: space-between;
+    font-family: var(--mono); font-size: 7pt; color: var(--question);
+  }
+
+  /* 스위치: 사이트의 '될까요' 토글을 작게 옮김 */
+  .sw {
+    display: inline-block; position: relative; flex: none;
+    width: 2.15em; height: 1.2em; border-radius: 999px;
+    background: var(--line-strong); vertical-align: -0.18em;
+  }
+  .sw::after {
+    content: ""; position: absolute; top: .16em; left: .16em;
+    width: .88em; height: .88em; border-radius: 50%;
+    background: #fff; box-shadow: 0 .05em .14em rgba(21,26,46,.28);
+  }
+  .sw.on { background: var(--on); }
+  .sw.on::after { left: auto; right: .16em; }
+
+  /* ---------- 표지 ---------- */
+  .cover { padding-top: 22mm; }
+  .cover .ask {
+    font-size: 30pt; font-weight: 300; color: var(--question);
+    letter-spacing: -0.03em; line-height: 1.15;
+  }
+  .cover .yes {
+    display: flex; align-items: center; gap: 7mm; margin-top: 3mm;
+  }
+  .cover .yes .sw { font-size: 46pt; }
+  .cover .yes h1 {
+    font-size: 66pt; font-weight: 700; letter-spacing: -0.055em; line-height: 1;
+  }
+  .cover .intro {
+    margin-top: 12mm; max-width: 118mm;
+    font-size: 11.5pt; line-height: 1.75; color: var(--ink-soft);
+  }
+  .cover .intro strong { color: var(--ink); font-weight: 600; }
+  .contact-row {
+    display: flex; gap: 8mm; margin-top: 7mm;
+    font-family: var(--mono); font-size: 8.4pt;
+  }
+  .contact-row a { border-bottom: 1px solid var(--ink); padding-bottom: .5mm; }
+  .contact-row span { color: var(--muted); margin-right: 2mm; }
+
+  .toc { margin-top: auto; margin-bottom: 10mm; }
+  .toc h2 {
+    font-family: var(--sans); font-size: 8pt; font-weight: 600;
+    color: var(--muted); letter-spacing: .01em; margin-bottom: 3mm;
+  }
+  .toc a {
+    display: grid; grid-template-columns: 11mm 1fr auto; align-items: baseline;
+    padding: 3.6mm 0; border-top: 1px solid var(--line-strong);
+  }
+  .toc a:last-child { border-bottom: 1px solid var(--line-strong); }
+  .toc .n { font-family: var(--mono); font-size: 8pt; color: var(--on); }
+  .toc .q { font-size: 11pt; color: var(--ink); }
+  .toc .q small { display: block; font-size: 8pt; color: var(--muted); margin-top: .4mm; }
+  .toc .p { font-family: var(--mono); font-size: 8pt; color: var(--muted); }
+
+  /* ---------- 프로젝트 첫 장 ---------- */
+  .pq {
+    font-size: 19pt; font-weight: 300; color: var(--question);
+    letter-spacing: -0.03em; line-height: 1.3;
+  }
+  .pa {
+    display: flex; align-items: center; gap: 3.5mm; margin-top: 2.5mm;
+  }
+  .pa .sw { font-size: 20pt; }
+  .pa h2 { font-size: 27pt; font-weight: 700; letter-spacing: -0.045em; line-height: 1.1; }
+  .pa h2 em { font-style: normal; color: var(--question); font-weight: 300; margin: 0 1.5mm; }
+
+  .links {
+    display: flex; flex-wrap: wrap; gap: 2mm 6mm; margin-top: 5mm;
+    font-family: var(--mono); font-size: 7.8pt;
+  }
+  .links a { display: inline-flex; gap: 1.6mm; align-items: baseline; }
+  .links a span { color: var(--muted); }
+  .links a u { text-decoration: none; border-bottom: 1px solid var(--on); color: var(--ink); }
+
+  .shot {
+    margin-top: 6mm; border: 1px solid var(--line-strong); border-radius: 2.2mm;
+    overflow: hidden; background: var(--white);
+  }
+  .shot img { display: block; width: 100%; height: 98mm; object-fit: cover; object-position: top center; }
+
+  .overview {
+    display: grid; grid-template-columns: 1fr 1.1fr; gap: 9mm; margin-top: 7mm;
+  }
+  .label {
+    font-family: var(--sans); font-size: 7.8pt; font-weight: 600; color: var(--muted);
+    letter-spacing: .01em;
+    margin-bottom: 2.4mm;
+  }
+  .overview p { color: var(--ink-soft); }
+  .overview p + p { margin-top: 2mm; }
+  .feat { list-style: none; }
+  .feat li {
+    position: relative; padding-left: 4.2mm; color: var(--ink-soft);
+  }
+  .feat li + li { margin-top: 1.5mm; }
+  .feat li::before {
+    content: ""; position: absolute; left: 0; top: .66em;
+    width: 1.7mm; height: 1.7mm; border-radius: 50%; background: var(--on);
+  }
+  .feat b { color: var(--ink); font-weight: 600; }
+
+  .stack { display: flex; flex-wrap: wrap; gap: 1.6mm; margin-top: auto; padding-bottom: 6mm; }
+  .stack span {
+    font-family: var(--mono); font-size: 7.2pt; padding: .9mm 2.6mm;
+    border-radius: 999px; background: var(--chip); color: var(--ink-soft);
+  }
+  .meta-note { font-size: 8pt; color: var(--muted); margin-top: 2mm; }
+
+  /* ---------- 프로젝트 둘째 장: 문제와 해결 ---------- */
+  .ps-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 6mm; }
+  .ps-head h3 { font-size: 17pt; font-weight: 700; letter-spacing: -0.035em; }
+  .legend { display: flex; gap: 5mm; font-size: 7.8pt; color: var(--muted); align-items: center; }
+  .legend .sw { font-size: 8.5pt; margin-right: 1.2mm; }
+
+  .case {
+    display: grid; grid-template-columns: 11mm 1fr; gap: 0 2mm;
+    padding: 4.6mm 0; border-top: 1px solid var(--line-strong);
+  }
+  .case .no { font-family: var(--mono); font-size: 9pt; color: var(--on); padding-top: .6mm; }
+  .case h4 { font-size: 11.6pt; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 2.2mm; }
+  .row { display: grid; grid-template-columns: 17mm 1fr; gap: 2mm; align-items: start; }
+  .row + .row { margin-top: 1.6mm; }
+  .row .tag {
+    display: flex; align-items: center; gap: 1.6mm;
+    font-size: 7.8pt; font-weight: 500; color: var(--muted); padding-top: .5mm;
+  }
+  .row .tag .sw { font-size: 8.5pt; }
+  .row.fix .tag { color: var(--on); }
+  .row p { color: var(--ink-soft); }
+  .row.fix p { color: var(--ink); }
+  code {
+    font-family: var(--mono); font-size: .88em; background: var(--chip);
+    padding: .1mm 1.1mm; border-radius: .8mm;
+  }
+
+  .learn {
+    margin-top: auto; margin-bottom: 6mm;
+    background: var(--ink); color: #fff; border-radius: 2.4mm;
+    padding: 6mm 7mm;
+    display: grid; grid-template-columns: 1.35fr 1fr; gap: 8mm;
+  }
+  .learn .label { color: #9aa1b5; }
+  .learn p { color: #dfe2ea; font-size: 9.2pt; }
+  .learn p b { color: #fff; font-weight: 600; }
+  .learn p + p { margin-top: 1.8mm; }
+  .learn ul { list-style: none; color: #b9bfcf; font-size: 8.4pt; }
+  .learn li { padding-left: 3.4mm; position: relative; }
+  .learn li + li { margin-top: 1.1mm; }
+  .learn li::before { content: "–"; position: absolute; left: 0; color: #6f7790; }
+
+  /* ---------- 마지막 장 ---------- */
+  .tools { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8mm; margin-top: 4mm; }
+  .tools h4 { font-family: var(--sans); font-size: 8pt; font-weight: 600; color: var(--muted); margin-bottom: 2.4mm; }
+  .tools li { list-style: none; font-size: 10.5pt; line-height: 2; border-bottom: 1px solid var(--line); }
+  .closing {
+    margin-top: auto; margin-bottom: 8mm;
+    background: var(--ink); color: #fff; border-radius: 3mm; padding: 13mm 12mm;
+  }
+  .closing .ask { font-size: 15pt; font-weight: 300; color: #9aa1b5; letter-spacing: -0.02em; }
+  .closing .big {
+    display: flex; align-items: center; gap: 4mm; margin-top: 2mm;
+    font-size: 32pt; font-weight: 700; letter-spacing: -0.045em;
+  }
+  .closing .big .sw { font-size: 24pt; }
+  .closing .mail {
+    display: inline-block; margin-top: 8mm; font-size: 15pt; font-weight: 500;
+    border-bottom: 2px solid #fff; padding-bottom: .6mm;
+  }
+  .closing .sub { display: flex; gap: 7mm; margin-top: 5mm; font-family: var(--mono); font-size: 8.2pt; color: #b9bfcf; }
+  .closing .sub a { color: #fff; border-bottom: 1px solid #5a6178; }
+</style>
+</head>
+<body>
+
+<!-- ================= 1. 표지 ================= -->
+<section class="page cover">
+  <div class="run"><span><b>임인혜</b> · Frontend Developer</span><span>PORTFOLIO 2026</span></div>
+
+  <p class="ask">이게 될까요?</p>
+  <div class="yes"><span class="sw on"></span><h1>됩니다.</h1></div>
+
+  <p class="intro">
+    프론트엔드 개발자 <strong>임인혜</strong>입니다. &ldquo;이게 될까요?&rdquo;라는 질문을 받으면 되는 방법부터 찾습니다.
+    막히면 파고들고, 새로우면 일단 써봅니다. 이 문서에는 네 가지 질문에 어떻게 답했는지,
+    그 과정에서 무엇이 막혔고 어떻게 풀었는지를 담았습니다.
+  </p>
+
+  <div class="contact-row">
+    <a href="mailto:shesrainbow2@gmail.com"><span>Mail</span>shesrainbow2@gmail.com</a>
+    <a href="https://github.com/E-nae"><span>GitHub</span>github.com/E-nae</a>
+  </div>
+
+  <nav class="toc">
+    <h2>네 개의 질문</h2>
+    <a href="#p1"><span class="n">01</span><span class="q">수만 건의 데이터를 버벅임 없이 보여줄 수 있을까요?<small>Virtual Scroll Dashboard</small></span><span class="p">p.02</span></a>
+    <a href="#p2"><span class="n">02</span><span class="q">티켓이 열리는 순간 몰려드는 사람들을 순서대로 받을 수 있을까요?<small>Queue Reservation System</small></span><span class="p">p.04</span></a>
+    <a href="#p3"><span class="n">03</span><span class="q">여러 사람이 한 문서를 동시에 고칠 수 있을까요?<small>Real-time Collaboration Editor</small></span><span class="p">p.06</span></a>
+    <a href="#p4"><span class="n">04</span><span class="q">스타일과 예산만 말하면 인테리어를 제안해 줄 수 있을까요?<small>Interior AI Agent</small></span><span class="p">p.08</span></a>
+  </nav>
+
+  <div class="folio"><span>enaeble.co.kr</span><span>01 / 10</span></div>
+</section>
+
+<!-- ================= 2. Dashboard ================= -->
+<section class="page" id="p1">
+  <div class="run"><span><b>01</b> — Virtual Scroll Dashboard</span><span>개인 프로젝트 · Frontend + Backend</span></div>
+
+  <p class="pq">수만 건의 데이터를 버벅임 없이 보여줄 수 있을까요?</p>
+  <div class="pa"><span class="sw on"></span><h2>됩니다. <em>/</em>Dashboard</h2></div>
+
+  <div class="links">
+    <a href="https://project3.enaeble.co.kr"><span>Live ↗</span><u>project3.enaeble.co.kr</u></a>
+    <a href="https://github.com/E-nae/virtual_scroll_dashboard_frontend"><span>Front ↗</span><u>github.com/E-nae/virtual_scroll_dashboard_frontend</u></a>
+    <a href="https://github.com/E-nae/virtual_scroll_dashboard_backend"><span>Back ↗</span><u>github.com/E-nae/virtual_scroll_dashboard_backend</u></a>
+  </div>
+
+  <div class="shot"><img src="img/p3.jpg" alt="Dashboard 화면"></div>
+
+  <div class="overview">
+    <div>
+      <p class="label">어떤 프로젝트인가</p>
+      <p>1만 건 규모의 결제 데이터를 다루는 어드민 대시보드입니다. 가상 스크롤로 렌더링 비용을 데이터 양과 분리하고, 필터 상태를 URL에 담아 새로고침·공유·뒤로가기에서도 같은 화면이 유지되게 만들었습니다.</p>
+      <p>데이터를 다루는 로직의 위치를 화면 코드와 나누기 위해 API 서버를 별도 저장소로 분리했습니다.</p>
+    </div>
+    <div>
+      <p class="label">주요 기능</p>
+      <ul class="feat">
+        <li><b>가상 스크롤 테이블</b> — 데이터가 몇 건이든 실제 행 DOM은 20개 안팎</li>
+        <li><b>URL 기반 필터</b> — 링크 공유 시 같은 화면, 뒤로가기는 필터 이력으로 동작</li>
+        <li><b>디바운스 검색</b> — 입력이 멈춘 뒤에만 요청, 이전 결과를 유지한 채 로딩 표시</li>
+        <li><b>서버 측 필터링</b> — 결제 상태·이메일 조건에 맞는 행만 전송</li>
+        <li><b>차트</b> — Recharts로 결제 현황 시각화</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="stack" style="margin-top:auto">
+    <span>Next.js</span><span>TypeScript</span><span>TanStack Virtual</span><span>TanStack Query</span><span>Nuqs</span><span>Recharts</span><span>shadcn/ui</span><span>Express 5</span><span>Supabase</span>
+  </div>
+  <div class="folio"><span>Virtual Scroll Dashboard</span><span>02 / 10</span></div>
+</section>
+
+<section class="page">
+  <div class="run"><span><b>01</b> — Virtual Scroll Dashboard</span><span>문제와 해결</span></div>
+  <div class="ps-head">
+    <h3>막혔던 곳, 풀어낸 방법</h3>
+    <div class="legend"><span><span class="sw"></span>문제</span><span><span class="sw on"></span>해결</span></div>
+  </div>
+
+  <div class="case">
+    <span class="no">01</span>
+    <div>
+      <h4>행이 많아질수록 스크롤이 끊기는 문제</h4>
+      <div class="row"><span class="tag"><span class="sw"></span>문제</span><p>1만 건을 일반 <code>&lt;table&gt;</code>로 그리면 DOM 노드도 1만 개가 생겨 초기 렌더가 길어지고 스크롤 중 프레임이 끊겼습니다.</p></div>
+      <div class="row fix"><span class="tag"><span class="sw on"></span>해결</span><p>TanStack Virtual로 뷰포트에 보이는 15~20행만 렌더링하고, 전체 높이만큼 컨테이너를 잡아 스크롤바 길이를 맞췄습니다. 렌더링 비용이 데이터 양이 아니라 화면 높이에 비례하게 됐습니다.</p></div>
+    </div>
+  </div>
+
+  <div class="case">
+    <span class="no">02</span>
+    <div>
+      <h4>새로고침하거나 링크를 공유하면 필터가 초기화되는 문제</h4>
+      <div class="row"><span class="tag"><span class="sw"></span>문제</span><p>검색어와 상태 필터를 컴포넌트 state로 들고 있어서 새로고침하면 사라지고, 공유받은 사람은 빈 화면을 봤습니다.</p></div>
+      <div class="row fix"><span class="tag"><span class="sw on"></span>해결</span><p>Nuqs로 필터 상태의 원본을 URL Query String에 두고 React state와 양방향 동기화했습니다. 상태를 두 군데 두고 맞추는 대신 URL을 단일 출처로 삼았습니다.</p></div>
+    </div>
+  </div>
+
+  <div class="case">
+    <span class="no">03</span>
+    <div>
+      <h4>타이핑할 때마다 요청이 나가고 화면이 깜빡이는 문제</h4>
+      <div class="row"><span class="tag"><span class="sw"></span>문제</span><p>입력 이벤트마다 API를 호출하니 요청이 여러 개 나가고, 응답 도착 순서에 따라 결과가 깜빡였습니다.</p></div>
+      <div class="row fix"><span class="tag"><span class="sw on"></span>해결</span><p>디바운스로 입력이 멈춘 뒤에만 요청을 보내고, <code>isFetching</code>과 로컬 입력값을 조합해 이전 결과를 유지한 채 로딩 표시만 얹었습니다.</p></div>
+    </div>
+  </div>
+
+  <div class="case">
+    <span class="no">04</span>
+    <div>
+      <h4>데이터를 다 넣었는데 일부만 조회되는 문제</h4>
+      <div class="row"><span class="tag"><span class="sw"></span>문제</span><p>시딩 스크립트로 1만 건을 넣었는데 조회하면 일부만 돌아왔습니다. 적재 실패인지 조회 문제인지부터 가려야 했습니다.</p></div>
+      <div class="row fix"><span class="tag"><span class="sw on"></span>해결</span><p>Supabase의 API 응답 행 수 기본 상한에서 잘리고 있었습니다. 프로젝트의 Max Rows 설정과 쿼리의 <code>.range()</code>를 맞춰 해결했습니다.</p></div>
+    </div>
+  </div>
+
+  <div class="learn">
+    <div>
+      <p class="label">배운 점</p>
+      <p><b>가상화는 렌더링 문제만 풉니다.</b> &lsquo;대용량 데이터 처리&rsquo;를 하나로 봤는데, 렌더링·네트워크·파싱·메모리는 각각 다른 문제였습니다.</p>
+      <p><b>상태의 원본을 어디에 둘지가 UX를 결정합니다.</b> 공유·새로고침·뒤로가기가 되느냐 마느냐를 가르는 선택이었습니다.</p>
+    </div>
+    <div>
+      <p class="label">다음 단계</p>
+      <ul>
+        <li>커서 기반 페이징으로 응답 크기 줄이기</li>
+        <li>Lighthouse·프레임 단위 성능 측정</li>
+        <li>인증·권한과 테스트 코드 추가</li>
+      </ul>
+    </div>
+  </div>
+  <div class="folio"><span>Virtual Scroll Dashboard</span><span>03 / 10</span></div>
+</section>
+
+<!-- ================= 3. Queue ================= -->
+<section class="page" id="p2">
+  <div class="run"><span><b>02</b> — Queue Reservation System</span><span>개인 프로젝트 · Full-stack</span></div>
+
+  <p class="pq">티켓이 열리는 순간 몰려드는 사람들을<br>순서대로 받을 수 있을까요?</p>
+  <div class="pa"><span class="sw on"></span><h2>됩니다. <em>/</em>Virtual Waiting Room</h2></div>
+
+  <div class="links">
+    <a href="https://project2.enaeble.co.kr"><span>Live ↗</span><u>project2.enaeble.co.kr</u></a>
+    <a href="https://github.com/E-nae/Queue-reservation"><span>Code ↗</span><u>github.com/E-nae/Queue-reservation</u></a>
+  </div>
+
+  <div class="shot"><img src="img/p2.jpg" alt="대기열 화면"></div>
+
+  <div class="overview">
+    <div>
+      <p class="label">어떤 프로젝트인가</p>
+      <p>티켓 예매처럼 짧은 시간에 요청이 몰리는 상황을 가정한 가상 대기열입니다. 문제를 둘로 나눠 다뤘습니다.</p>
+      <p><b style="color:var(--ink)">줄 세우기</b> — 들어오는 요청을 순서대로 세우고 서버가 감당할 만큼만 통과시키기. <b style="color:var(--ink)">초과 판매 막기</b> — 통과한 요청 사이에서도 재고 차감이 어긋나지 않게 하기.</p>
+    </div>
+    <div>
+      <p class="label">주요 기능</p>
+      <ul class="feat">
+        <li><b>선착순 대기열</b> — Redis Sorted Set에 진입 시각을 score로 저장해 FIFO 보장</li>
+        <li><b>유량 제어</b> — 스케줄러가 1초마다 정해진 인원만 활성 목록으로 이동</li>
+        <li><b>내 순번 표시</b> — 앞에 있는 인원 수로 순번 계산, 폴링으로 갱신</li>
+        <li><b>원자적 재고 차감</b> — 확인·차감을 Lua Script 하나로 묶어 초과 판매 차단</li>
+        <li><b>상태 전환 UI</b> — 대기 → 입장 → 결제를 Framer Motion으로 표현</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="stack" style="margin-top:auto">
+    <span>Next.js</span><span>TypeScript</span><span>Framer Motion</span><span>Tailwind CSS</span><span>Node.js / Express</span><span>Redis (ioredis)</span><span>Lua Script</span><span>pnpm workspace</span>
+  </div>
+  <div class="folio"><span>Queue Reservation System</span><span>04 / 10</span></div>
+</section>
+
+<section class="page">
+  <div class="run"><span><b>02</b> — Queue Reservation System</span><span>문제와 해결</span></div>
+  <div class="ps-head">
+    <h3>막혔던 곳, 풀어낸 방법</h3>
+    <div class="legend"><span><span class="sw"></span>문제</span><span><span class="sw on"></span>해결</span></div>
+  </div>
+
+  <div class="case">
+    <span class="no">01</span>
+    <div>
+      <h4>재고보다 많이 팔리는 문제 (Race Condition)</h4>
+      <div class="row"><span class="tag"><span class="sw"></span>문제</span><p>재고 차감은 &lsquo;남았는지 확인&rsquo; 다음에 &lsquo;차감&rsquo;, 명령이 두 개입니다. Redis는 명령 하나는 원자적으로 처리하지만 두 명령 사이에 다른 요청이 끼어들 수 있어, 재고 1개에 두 요청이 동시에 오면 재고가 -1이 됩니다.</p></div>
+      <div class="row fix"><span class="tag"><span class="sw on"></span>해결</span><p>활성 유저 확인·재고 확인·재고 차감을 Lua Script 하나로 묶었습니다. Redis는 스크립트를 통째로 한 명령처럼 실행해 그 사이에 끼어들 틈이 없습니다. 락은 획득·해제·만료 관리가 따로 필요해, 연산이 짧은 이 경우엔 스크립트가 더 단순했습니다.</p></div>
+    </div>
+  </div>
+
+  <div class="case">
+    <span class="no">02</span>
+    <div>
+      <h4>몰려드는 트래픽이 결제 로직까지 닿는 문제</h4>
+      <div class="row"><span class="tag"><span class="sw"></span>문제</span><p>동시 요청이 서버 처리량을 넘으면 모두가 느려집니다. 요청을 거절하면 사용자는 새로고침을 반복해 상황이 더 나빠집니다.</p></div>
+      <div class="row fix"><span class="tag"><span class="sw on"></span>해결</span><p>요청을 한꺼번에 받는 대신 대기열에 세우고, 스케줄러가 1초마다 앞쪽에서 정해진 인원만 활성 목록(Set)으로 옮깁니다. 활성 목록에 있는 유저만 결제 API를 호출할 수 있어 통과 속도를 서버가 정합니다.</p></div>
+    </div>
+  </div>
+
+  <div class="case">
+    <span class="no">03</span>
+    <div>
+      <h4>순번 갱신: SSE냐 폴링이냐</h4>
+      <div class="row"><span class="tag"><span class="sw"></span>문제</span><p>순번은 서버 → 클라이언트 단방향 정보라 SSE가 어울려 보였지만, 대기 인원이 많을수록 연결을 계속 유지하는 비용이 커집니다.</p></div>
+      <div class="row fix"><span class="tag"><span class="sw on"></span>해결</span><p>순번은 초 단위 갱신이면 충분한 정보라 폴링을 택했습니다. 실제 서비스라면 대기 규모를 보고 다시 판단할 트레이드오프로 기록해 두었습니다.</p></div>
+    </div>
+  </div>
+
+  <div class="learn">
+    <div>
+      <p class="label">배운 점</p>
+      <p><b>원자성은 자료구조가 아니라 연산 단위의 문제였습니다.</b> 안전한 건 명령 하나이지 제가 짠 로직 전체가 아니었습니다.</p>
+      <p><b>막는 것과 줄 세우는 것은 다릅니다.</b> 순번을 보여주고 기다리게 하면 같은 지연이라도 경험이 달라집니다.</p>
+    </div>
+    <div>
+      <p class="label">다음 단계</p>
+      <ul>
+        <li>k6·Artillery로 동시 요청 부하 검증</li>
+        <li>TTL·하트비트로 이탈 유저 정리</li>
+        <li>처리 실패 시 순번 복구, 인증 추가</li>
+      </ul>
+    </div>
+  </div>
+  <div class="folio"><span>Queue Reservation System</span><span>05 / 10</span></div>
+</section>
+
+<!-- ================= 4. Editor ================= -->
+<section class="page" id="p3">
+  <div class="run"><span><b>03</b> — Real-time Collaboration Editor</span><span>개인 프로젝트 · Full-stack</span></div>
+
+  <p class="pq">여러 사람이 한 문서를 동시에 고칠 수 있을까요?</p>
+  <div class="pa"><span class="sw on"></span><h2>됩니다. <em>/</em>Collaboration Editor</h2></div>
+
+  <div class="links">
+    <a href="https://project1.enaeble.co.kr"><span>Live ↗</span><u>project1.enaeble.co.kr</u></a>
+    <a href="https://github.com/E-nae/realtime_collaborative_Editor"><span>Code ↗</span><u>github.com/E-nae/realtime_collaborative_Editor</u></a>
+  </div>
+
+  <div class="shot"><img src="img/p1.jpg" alt="협업 에디터 화면"></div>
+
+  <div class="overview">
+    <div>
+      <p class="label">어떤 프로젝트인가</p>
+      <p>Tiptap, Yjs, Hocuspocus로 여러 사용자가 같은 문서를 동시에 편집하는 에디터입니다.</p>
+      <p>충돌 해소 방식으로 CRDT를 택했습니다. 서버가 편집 순서를 판정하지 않고 문서 상태를 중계·저장만 하므로 충돌 로직을 직접 짤 필요가 없습니다. 대신 문서를 바이너리로 다루게 되어 PostgreSQL에 <code>bytea</code>로 저장합니다.</p>
+    </div>
+    <div>
+      <p class="label">주요 기능</p>
+      <ul class="feat">
+        <li><b>동시 편집</b> — Yjs(CRDT)로 각자 편집해도 같은 결과로 수렴</li>
+        <li><b>실시간 동기화</b> — Hocuspocus WebSocket 서버가 변경분을 다른 접속자에게 전달</li>
+        <li><b>문서 영속화</b> — 입력이 잦아들면 Yjs 상태를 그대로 Supabase에 저장</li>
+        <li><b>Upsert 저장</b> — <code>ON CONFLICT</code>로 INSERT·UPDATE를 하나로 처리</li>
+        <li><b>SSR 안전 초기화</b> — Provider 준비 전엔 에디터를 렌더링하지 않음</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="stack" style="margin-top:auto">
+    <span>Next.js (App Router)</span><span>Tiptap</span><span>Yjs</span><span>Hocuspocus</span><span>Node.js / TypeScript</span><span>postgres.js</span><span>Supabase</span><span>Tailwind CSS</span>
+  </div>
+  <div class="folio"><span>Real-time Collaboration Editor</span><span>06 / 10</span></div>
+</section>
+
+<section class="page">
+  <div class="run"><span><b>03</b> — Real-time Collaboration Editor</span><span>문제와 해결</span></div>
+  <div class="ps-head">
+    <h3>막혔던 곳, 풀어낸 방법</h3>
+    <div class="legend"><span><span class="sw"></span>문제</span><span><span class="sw on"></span>해결</span></div>
+  </div>
+
+  <div class="case">
+    <span class="no">01</span>
+    <div>
+      <h4>연결은 되는데 동기화만 되지 않던 문제 — 가장 오래 붙잡은 문제</h4>
+      <div class="row"><span class="tag"><span class="sw"></span>증상</span><p>WebSocket은 <code>101 Switching Protocols</code>로 정상 연결되는데, 서버의 <code>onConnect</code>·<code>onLoadDocument</code> 훅이 한 번도 불리지 않았습니다. 양쪽 모두 에러 로그가 없었고 Provider는 <code>Connecting</code>에 멈춰 있었습니다.</p></div>
+      <div class="row"><span class="tag"><span class="sw"></span>추적</span><p>에러가 없다는 점이 단서였습니다. 핸드셰이크는 성공했으니 연결 계층(방화벽·URL·CORS)이 아니라, 연결 뒤 주고받는 메시지를 해석하지 못하는 프로토콜 계층을 의심하고 서버·클라이언트 패키지 버전을 대조했습니다.</p></div>
+      <div class="row"><span class="tag"><span class="sw"></span>원인</span><p>서버 <code>@hocuspocus/server</code>는 v3, 클라이언트 <code>@hocuspocus/provider</code>는 v2였습니다. 핸드셰이크는 표준이라 통과하지만 그 위의 메시지 형식은 버전마다 달라, 서로의 메시지를 에러 없이 조용히 무시하고 있었습니다.</p></div>
+      <div class="row fix"><span class="tag"><span class="sw on"></span>해결</span><p>클라이언트 Provider를 서버와 같은 메이저 버전으로 맞추자 바로 동기화됐습니다. 이후 서버·클라이언트 SDK가 짝을 이루는 라이브러리는 버전 호환성부터 확인합니다.</p></div>
+    </div>
+  </div>
+
+  <div class="case">
+    <span class="no">02</span>
+    <div>
+      <h4>서버 렌더링 환경에서 에디터가 깨지는 문제</h4>
+      <div class="row"><span class="tag"><span class="sw"></span>문제</span><p>Tiptap 에디터와 Hocuspocus Provider는 브라우저 API에 의존해 서버에서 실행되면 안 됩니다.</p></div>
+      <div class="row fix"><span class="tag"><span class="sw on"></span>해결</span><p><code>useEffect</code> 안에서 Provider를 만들고, Provider가 준비되기 전에는 에디터를 렌더링하지 않도록 순서를 분리했습니다.</p></div>
+    </div>
+  </div>
+
+  <div class="learn">
+    <div>
+      <p class="label">배운 점</p>
+      <p><b>에러가 없다는 것이 정상이라는 뜻은 아닙니다.</b> &lsquo;어디까지 성공했고 어디부터 아무 일도 안 일어나는가&rsquo;를 나눠 보면 조용한 실패도 범위가 빠르게 좁혀졌습니다.</p>
+    </div>
+    <div>
+      <p class="label">다음 단계</p>
+      <ul>
+        <li><code style="background:#2a3047;color:#dfe2ea">onAuthenticate</code>에서 토큰 검증</li>
+        <li>IndexedDB로 오프라인 편집 지원</li>
+        <li>문서 목록·권한, 동시 접속 규모 검증</li>
+      </ul>
+    </div>
+  </div>
+  <div class="folio"><span>Real-time Collaboration Editor</span><span>07 / 10</span></div>
+</section>
+
+<!-- ================= 5. Interior AI ================= -->
+<section class="page" id="p4">
+  <div class="run"><span><b>04</b> — Interior AI Agent</span><span>팀 프로젝트 · 이미지 생성 에이전트 담당</span></div>
+
+  <p class="pq">스타일과 예산만 말하면<br>인테리어를 제안해 줄 수 있을까요?</p>
+  <div class="pa"><span class="sw on"></span><h2>됩니다. <em>/</em>Interior AI Agent</h2></div>
+
+  <div class="links">
+    <a href="https://project4.enaeble.co.kr"><span>Live ↗</span><u>project4.enaeble.co.kr</u></a>
+    <a href="https://github.com/E-nae/interior_ai_agent"><span>Code ↗</span><u>github.com/E-nae/interior_ai_agent</u></a>
+  </div>
+
+  <div class="shot"><img src="img/p4.jpg" alt="Interior AI Agent 화면" style="height:84mm"></div>
+
+  <div class="overview">
+    <div>
+      <p class="label">어떤 프로젝트인가</p>
+      <p>방 사진과 취향·예산을 받아 가구를 추천하고, 인테리어 시안 이미지와 PDF 제안서까지 만들어 주는 LangGraph 기반 멀티 에이전트 팀 프로젝트입니다.</p>
+      <p><b style="color:var(--ink)">제가 맡은 부분은 이미지 생성 에이전트입니다.</b> 사용자의 취향 답변과 가구 추천 에이전트가 확정한 가구 목록을 받아, 원본 방 구조 위에 그 가구들을 최대한 똑같이 배치한 시안 이미지를 생성합니다.</p>
+    </div>
+    <div>
+      <p class="label">맡은 기능</p>
+      <ul class="feat">
+        <li><b>공간 분석</b> — Responses API(Vision)로 방 사진의 구조 분석</li>
+        <li><b>렌더 프롬프트 설계</b> — 결과물마다 별도 프롬프트를 만들어 State에 전달</li>
+        <li><b>시안 5종 생성</b> — 메인 시안을 먼저 확정하고 평면도·디테일 2종·소재 보드를 파생 생성</li>
+        <li><b>Scene Lock</b> — 벽·창·문·카메라 각도는 고정하고 가구와 스타일만 변경</li>
+        <li><b>병렬 생성과 재시도</b> — 4장 동시 생성, API 호출 단위 재시도, 결과 파일 검증</li>
+        <li><b>Manifest</b> — 생성 파일과 실제 적용된 상품 ID를 남겨 결과 화면·PDF와 매칭</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="stack" style="margin-top:auto">
+    <span>Python 3.11</span><span>LangGraph</span><span>OpenAI Responses API</span><span>Image API (gpt-image-2)</span><span>ThreadPoolExecutor</span><span>Streamlit</span>
+  </div>
+  <div class="folio"><span>Interior AI Agent</span><span>08 / 10</span></div>
+</section>
+
+<section class="page">
+  <div class="run"><span><b>04</b> — Interior AI Agent</span><span>문제와 해결 · 이미지 생성</span></div>
+  <div class="ps-head">
+    <h3>막혔던 곳, 풀어낸 방법</h3>
+    <div class="legend"><span><span class="sw"></span>문제</span><span><span class="sw on"></span>해결</span></div>
+  </div>
+
+  <div class="case">
+    <span class="no">01</span>
+    <div>
+      <h4>추천한 가구가 이미지에 반영되지 않던 문제</h4>
+      <div class="row"><span class="tag"><span class="sw"></span>문제</span><p>컨셉에 맞춰 미리 확정한 가구 목록을 시안에 최대한 똑같이 반영해야 했는데, 처음에는 프롬프트에 상품 URL만 텍스트로 넣었습니다. 이미지 모델은 URL을 열어보지 않아 상품 외형이 거의 반영되지 않았고, 선택되지 않은 대체 상품까지 섞여 가구 모양이 뒤섞였습니다.</p></div>
+      <div class="row fix"><span class="tag"><span class="sw on"></span>해결</span><p>실제 상품 이미지를 multimodal 참조 이미지로 함께 전달했습니다. 원본 방을 Image 1, 추천 가구를 Image 2부터 순서대로 넣고 프롬프트에서 상품 ID와 이미지 번호를 직접 연결했으며, 실루엣·색상·재질을 유지하도록 명시했습니다. 승인된 상품 이미지만 참조에 넣어 가구가 섞이지 않게 했습니다.</p></div>
+    </div>
+  </div>
+
+  <div class="case">
+    <span class="no">02</span>
+    <div>
+      <h4>AI가 방을 새로 창작해버리던 문제</h4>
+      <div class="row"><span class="tag"><span class="sw"></span>문제</span><p>작은 원룸이 넓은 거실로 바뀌고, 창문·문·벽 위치와 카메라 시점이 달라졌습니다. 승인하지 않은 가구가 임의로 추가되고 이미지마다 조명도 제각각이었습니다.</p></div>
+      <div class="row fix"><span class="tag"><span class="sw on"></span>해결</span><p>원본 구조를 절대 기준으로 지정하는 Scene Lock 규칙을 만들었습니다. 카메라·건축 구조·스케일·조명은 고정하고, 승인된 가구만 쓰며 가구와 스타일만 바꿀 수 있게 프롬프트로 강제했습니다. 덕분에 Before / After 비교가 가능한, &lsquo;내 방&rsquo;으로 알아볼 수 있는 시안이 나왔습니다.</p></div>
+    </div>
+  </div>
+
+  <div class="case">
+    <span class="no">03</span>
+    <div>
+      <h4>이미지 5장을 차례로 만들어 오래 걸리던 문제</h4>
+      <div class="row"><span class="tag"><span class="sw"></span>문제</span><p>메인 시안부터 소재 보드까지 순차 생성해, 전체 시간이 각 이미지 생성 시간의 합만큼 걸렸습니다.</p></div>
+      <div class="row fix"><span class="tag"><span class="sw on"></span>해결</span><p>메인 시안을 먼저 확정한 뒤 나머지 4장을 <code>ThreadPoolExecutor(max_workers=4)</code>로 동시에 요청했습니다. 응답 대기가 긴 I/O 작업이라 스레드 병렬이 효과적이었고, 일부가 실패해도 성공한 결과는 그대로 씁니다.</p></div>
+    </div>
+  </div>
+
+  <div class="case">
+    <span class="no">04</span>
+    <div>
+      <h4>이미지는 만들어졌는데 전체가 실패로 처리되던 문제</h4>
+      <div class="row"><span class="tag"><span class="sw"></span>문제</span><p>소재 보드는 정상 생성됐는데 <code>APIConnectionError</code>가 남아 노드 전체가 실패 처리됐고, 다음 단계가 실행되지 않아 Manifest가 누락됐습니다.</p></div>
+      <div class="row fix"><span class="tag"><span class="sw on"></span>해결</span><p>재시도를 노드 전체가 아니라 API 호출 단위(지수 백오프)로 옮겨 이미 만든 이미지를 다시 만들지 않게 했습니다. 성공 기준도 예외 여부가 아니라 결과 파일의 존재와 크기로 바꿨습니다.</p></div>
+    </div>
+  </div>
+
+  <div class="learn">
+    <div>
+      <p class="label">배운 점</p>
+      <p><b>AI에게 맡길 부분과 고정할 부분을 나눠야 결과가 쓸모 있어집니다.</b> 자유롭게 두면 그럴듯하지만 &lsquo;내 방&rsquo;이 아닌 이미지가 나왔습니다.</p>
+      <p><b>성공은 예외가 아니라 결과물로 판정합니다.</b></p>
+    </div>
+    <div>
+      <p class="label">다음 단계</p>
+      <ul>
+        <li>평면도 이미지·다중 각도·Depth 입력으로 구조 정확도 높이기</li>
+        <li>누락된 이미지만 이어 만드는 Resume 기능</li>
+        <li>빠른 Preview / 고품질 Final 모드 분리</li>
+      </ul>
+    </div>
+  </div>
+  <div class="folio"><span>Interior AI Agent</span><span>09 / 10</span></div>
+</section>
+
+<!-- ================= 6. 마무리 ================= -->
+<section class="page">
+  <div class="run"><span><b>임인혜</b> · Frontend Developer</span><span>도구와 연락처</span></div>
+
+  <h3 style="font-size:17pt;font-weight:700;letter-spacing:-0.035em">답하는 데 쓴 도구</h3>
+  <div class="tools">
+    <div><h4>화면</h4><ul><li>React, Next.js</li><li>TypeScript</li><li>Tailwind CSS</li><li>TanStack Virtual · Query, Nuqs</li><li>Tiptap</li></ul></div>
+    <div><h4>서버와 실시간</h4><ul><li>Node.js, Express</li><li>Redis, Lua Script</li><li>Hocuspocus, Yjs</li><li>Supabase (PostgreSQL)</li></ul></div>
+    <div><h4>AI</h4><ul><li>Python</li><li>LangGraph</li><li>OpenAI Responses · Image API</li><li>Streamlit</li></ul></div>
+  </div>
+
+  <div class="closing">
+    <p class="ask">될지 궁금한 아이디어가 있다면</p>
+    <div class="big"><span class="sw on"></span>같이 확인해 볼게요.</div>
+    <a class="mail" href="mailto:shesrainbow2@gmail.com">shesrainbow2@gmail.com</a>
+    <div class="sub">
+      <span>GitHub <a href="https://github.com/E-nae">github.com/E-nae</a></span>
+      <span>Web <a href="https://enaeble.co.kr">enaeble.co.kr</a></span>
+    </div>
+  </div>
+  <div class="folio"><span>Enae + Enable = Enaeble</span><span>10 / 10</span></div>
+</section>
+
+</body>
+</html>
